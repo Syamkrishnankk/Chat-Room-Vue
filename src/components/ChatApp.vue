@@ -32,7 +32,7 @@
                     Join
               </v-btn> 
             </v-row>
-    <p align="center" class="mt-5" style="color: rgb(179, 0, 0);font-weight: 600;" v-if="isCodeTrue">Invalid Code</p>
+            <p align="center" class="mt-5" style="color: rgb(179, 0, 0);font-weight: 600;" v-if="isCodeTrue">Invalid Code</p>
             </div>
             <div v-if="isCode" class="mb-5 mt-7">
               <v-row align="center" justify="center">
@@ -42,7 +42,7 @@
             </v-row>
             <v-row class="ma-5" align="center" justify="center" >
               <p align="center" class="my-2 ml-5 mr-2"><span style="color: #90A4AE;">Code</span> : {{ code }}</p>
-              <v-btn style="text-transform: unset !important;font-size: 12px;" class="mr-5" variant="outlined" v-clipboard:copy="code">Copy</v-btn>
+              <v-btn style="text-transform: unset !important;font-size: 12px;" class="mr-5" variant="outlined" v-clipboard:copy="code" v-clipboard:success="onCopySuccess">{{ isCopy ? 'Copied' : 'Copy'}}</v-btn>
             <v-btn @click="startMessaging" color="blue-grey-darken-4" style="text-transform: unset !important;">
                 Start Messaging
             </v-btn>
@@ -54,14 +54,14 @@
     </v-row>
     <div v-if="isJoin" class="enter code mt-3">
       <v-row align="center" justify="center">
-        <v-card width="500" class="px-5 py-3">
-          <v-row>
+        <v-card width="500" class="px-8 py-5">
+          <v-row >
             <h4>Code : {{ user }}</h4>
-            <v-btn style="text-transform: unset !important;font-size: 12px;" class="mr-5" variant="outlined" v-clipboard:copy="user">Copy</v-btn>
+            <v-btn style="text-transform: unset !important;font-size: 12px;" class="mx-5" variant="outlined" v-clipboard:copy="user" v-clipboard:success="onCopySuccess" height="25">{{ isCopy ? 'Copied' : 'Copy'}}</v-btn>
           </v-row>
-         </v-card>
+        </v-card>
       </v-row>
-        <ChatBox2  :user="user" ></ChatBox2>
+        <ChatBox2  :user="user" :username="userNameEnter"></ChatBox2>
         <v-row align="center" justify="center">
       <v-col cols="auto">
         <v-text-field v-model="message" :placeholder="isRules ? 'Message cannot be empty' : 'Message'" max-width="500" min-width="400" @keyup.enter="sendMessage2"  ></v-text-field>
@@ -74,15 +74,15 @@
 
     <div v-if="isStartMsg" class="mt-3">
       <v-row align="center" justify="center">
-        <v-card width="500" class="px-5 py-3">
-          <v-row>
+        <v-card width="500" class="px-8 py-5">
+          <v-row >
             <h4>Code : {{ code }}</h4>
-            <v-btn style="text-transform: unset !important;font-size: 12px;" class="mr-5" variant="outlined" v-clipboard:copy="code">Copy</v-btn>
+            <v-btn style="text-transform: unset !important;font-size: 12px;" class="mx-5" variant="outlined" v-clipboard:copy="code" v-clipboard:success="onCopySuccess" height="25">{{ isCopy ? 'Copied' : 'Copy'}}</v-btn>
           </v-row>
         </v-card>
       </v-row>
 
-    <ChatBox  :code="code" ></ChatBox>
+    <ChatBox  :code="code" :username="userNameCode"></ChatBox>
     <v-row align="center" justify="center">
       <v-col cols="auto">
         <v-text-field v-model="message" :placeholder="isRules ? 'Message cannot be empty' : 'Message'" max-width="500" min-width="400" @keyup.enter="sendMessage" ></v-text-field>
@@ -119,6 +119,7 @@ const isRules = ref(false);
 const isRequired = ref(false);
 const isCodeTrue = ref(false);
 const channel = new BroadcastChannel('chat-channel');
+const isCopy = ref(false);
 const messageRules = ref([
   value => {
     if(value){
@@ -149,10 +150,16 @@ const codeRules = ref([
     }
   }
 ]);
+
+const onCopySuccess = () =>{
+  isCopy.value = true;
+};
+
 // localStorage.setItem('messages',JSON.stringify(messages.value));
 const startMessaging = () => {
   console.log(userNameCode.value.length)
   if(userNameCode.value.length > 0){
+    isCopy.value = false;
     messages.value.push({ code: code.value, messages: [] });
     localStorage.setItem('messages',JSON.stringify(messages.value));
     const storedMessages = localStorage.getItem('messages');
