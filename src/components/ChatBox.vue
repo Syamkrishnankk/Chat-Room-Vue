@@ -1,0 +1,59 @@
+<template>
+  <v-row align="center" justify="center" class="ma-5">
+    <v-card width="500" height="300" class="pa-10 overflow-auto messagelist" >
+        <span v-for="msg in messages" :key="msg.code" >
+            <span v-for="message in msg.messages" :key="msg.sender" v-if="msg.code == code" >
+        <v-list two-line id="list">
+      <v-list-item >
+        
+        <v-list-item-content>
+          <v-card color="teal-lighten-5" class="px-4 py-3">
+            <v-list-item-subtitle style="font-size: 14px;" class="mb-2 text-wrap">{{ message.sender }}</v-list-item-subtitle>
+            <v-row>
+              <v-col cols="10">
+                <v-list-item-title style="font-size: 16px;" class="mb-1 text-wrap">{{ message.content }}</v-list-item-title>
+              </v-col>
+              <v-col cols="2" >
+                <v-list-item-subtitle class="mt-1" style="font-size: 14px;" >{{ message.msgTime }}</v-list-item-subtitle>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-list-item-content>
+        
+      </v-list-item>
+    </v-list>
+</span>
+</span>
+    </v-card>
+  </v-row>
+
+</template>
+<style scoped>
+.messagelist{
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+}
+
+</style>
+<script setup>
+import { defineProps,ref,onMounted } from 'vue';
+const channel = new BroadcastChannel('chat-channel');
+const messages = ref(JSON.parse(localStorage.getItem('messages')));
+const props = defineProps(
+    {
+        code : String,
+    }
+)
+// onMounted(
+//   channel.onmessage = (msg) =>{
+//   messages.value = msg.data;
+//   console.log('onmeassage',messages.value);
+// }
+// );
+channel.onmessage = (msg) =>{
+  messages.value = msg.data;
+  console.log('onmeassage',messages.value);
+}
+
+</script>
