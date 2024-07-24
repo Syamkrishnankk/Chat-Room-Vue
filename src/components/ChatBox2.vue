@@ -6,16 +6,16 @@
         <v-list two-line  >
       <v-list-item >
 
-          <v-card color="teal-lighten-5" class="px-4 py-3" >
-            <v-list-item-subtitle style="font-size: 14px;" class="mb-2 text-wrap">{{ message.sender }}</v-list-item-subtitle>
-            <v-row>
-              <v-col cols="10">
-                <v-list-item-title style="font-size: 16px;" class="mb-1 text-wrap" id="list">{{ message.content }}</v-list-item-title>
-              </v-col>
-              <v-col cols="2" >
-                <v-list-item-subtitle class="mt-1" style="font-size: 14px;" >{{ message.msgTime }}</v-list-item-subtitle>
-              </v-col>
-            </v-row>
+          <v-card color="teal-lighten-5" class="px-4 py-3" :style="[ username === message.sender ? {'float': 'right','width' : 'fit-content'} : {'float': 'left','width' : 'fit-content'}]">
+            <v-row class="ma-1">
+    
+    <v-list-item-subtitle style="font-size: 14px;" class="mb-2 text-wrap">{{ message.sender }}</v-list-item-subtitle>
+
+
+    <v-list-item-subtitle class="ml-2" style="font-size: 12px;" >{{ message.msgTime }}</v-list-item-subtitle>
+
+</v-row>
+<v-list-item-title style="font-size: 16px;" class="mb-1 text-wrap">{{ message.content }}</v-list-item-title>
           </v-card>
         
       </v-list-item>
@@ -45,6 +45,7 @@ let messages = ref(JSON.parse(localStorage.getItem('messages')));
 const props = defineProps(
     {
         user : String,
+        username : String,
     }
 )
 
