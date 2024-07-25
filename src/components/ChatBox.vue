@@ -1,13 +1,14 @@
 <template>
   <v-row align="center" justify="center" class="ma-5">
-    <v-card width="500" height="300" class="py-10 pl-2 overflow-auto messagelist" >
+    <v-card width="800" height="400" class="py-10 pl-2 overflow-auto messagelist" >
         <span v-for="msg in messages" :key="msg.code" >
             <span v-for="message in msg.messages" :key="msg.sender" v-if="msg.code == code" >
         <v-list two-line id="list">
-      <v-list-item >
+    
         
 
-          <v-card color="teal-lighten-5" class="px-4 py-3" :style="[ username == message.sender ? {'float': 'right','width' : 'fit-content'} : {'float': 'left','width' : 'fit-content'}]" >
+          <v-card color="teal-lighten-5" class="px-4 py-3 mx-2" :style="[ username == message.sender ? {'float': 'right','width' : 'fit-content'} : {'float': 'left','width' : 'fit-content'}]" >
+            <v-list-item >
             <v-row class="ma-1">
     
                 <v-list-item-subtitle style="font-size: 14px;" class="mb-2 text-wrap">{{ message.sender }}</v-list-item-subtitle>
@@ -17,10 +18,11 @@
          
             </v-row>
             <v-list-item-title style="font-size: 16px;" class="mb-1 text-wrap">{{ message.content }}</v-list-item-title>
+          </v-list-item>
           </v-card>
    
         
-      </v-list-item>
+
     </v-list>
 </span>
 </span>
