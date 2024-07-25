@@ -6,7 +6,7 @@
         <v-list two-line  >
 
 
-          <v-card color="teal-lighten-5" class="px-4 py-3 mx-2" :style="[ username === message.sender ? {'float': 'right','width' : 'fit-content'} : {'float': 'left','width' : 'fit-content'}]">
+          <v-card color="teal-lighten-5" class="px-1 py-1 mx-2" :style="[ username === message.sender ? {'float': 'right','width' : 'fit-content'} : {'float': 'left','width' : 'fit-content'}]">
             <v-list-item >
             <v-row class="ma-1">
     
