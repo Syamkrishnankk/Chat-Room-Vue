@@ -54,7 +54,7 @@
     </v-row>
     <div v-if="isJoin" class="enter code mt-3">
       <v-row align="center" justify="center">
-        <v-card width="500" class="px-8 py-5">
+        <v-card width="800" class="px-8 py-5">
           <v-row >
             <h4>Code : {{ user }}</h4>
             <v-btn style="text-transform: unset !important;font-size: 12px;" class="mx-5" variant="outlined" v-clipboard:copy="user" v-clipboard:success="onCopySuccess" height="25">{{ isCopy ? 'Copied' : 'Copy'}}</v-btn>
@@ -64,7 +64,7 @@
         <ChatBox2  :user="user" :username="userNameEnter"></ChatBox2>
         <v-row align="center" justify="center">
       <v-col cols="auto">
-        <v-text-field v-model="message" :placeholder="isRules ? 'Message cannot be empty' : 'Message'" max-width="500" min-width="400" @keyup.enter="sendMessage2"  ></v-text-field>
+        <v-text-field v-model="message" :placeholder="isRules ? 'Message cannot be empty' : 'Message'" max-width="800" min-width="700" @keyup.enter="sendMessage2"  ></v-text-field>
       </v-col>
       <v-col cols="auto">
         <v-btn type="submit" color="white" @click="sendMessage2" class="mb-5"  text="Send" height="40" style="text-transform: unset !important;"></v-btn>
@@ -74,7 +74,7 @@
 
     <div v-if="isStartMsg" class="mt-3">
       <v-row align="center" justify="center">
-        <v-card width="500" class="px-8 py-5">
+        <v-card width="800" class="px-8 py-5">
           <v-row >
             <h4>Code : {{ code }}</h4>
             <v-btn style="text-transform: unset !important;font-size: 12px;" class="mx-5" variant="outlined" v-clipboard:copy="code" v-clipboard:success="onCopySuccess" height="25">{{ isCopy ? 'Copied' : 'Copy'}}</v-btn>
@@ -85,7 +85,7 @@
     <ChatBox  :code="code" :username="userNameCode"></ChatBox>
     <v-row align="center" justify="center">
       <v-col cols="auto">
-        <v-text-field v-model="message" :placeholder="isRules ? 'Message cannot be empty' : 'Message'" max-width="500" min-width="400" @keyup.enter="sendMessage" ></v-text-field>
+        <v-text-field v-model="message" :placeholder="isRules ? 'Message cannot be empty' : 'Message'" max-width="800" min-width="700" @keyup.enter="sendMessage" ></v-text-field>
       </v-col>
       <v-col cols="auto">
         <v-btn type="submit" color="white" @click="sendMessage" class="mb-5"  text="Send" height="40" style="text-transform: unset !important;"></v-btn>
