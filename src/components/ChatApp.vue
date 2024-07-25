@@ -53,14 +53,7 @@
         </v-card>
     </v-row>
     <div v-if="isJoin" class="enter code mt-3">
-      <v-row align="center" justify="center">
-        <v-card width="800" class="px-8 py-5">
-          <v-row >
-            <h4>Code : {{ user }}</h4>
-            <v-btn style="text-transform: unset !important;font-size: 12px;" class="mx-5" variant="outlined" v-clipboard:copy="user" v-clipboard:success="onCopySuccess" height="25">{{ isCopy ? 'Copied' : 'Copy'}}</v-btn>
-          </v-row>
-        </v-card>
-      </v-row>
+
         <ChatBox2  :user="user" :username="userNameEnter"></ChatBox2>
         <v-row align="center" justify="center">
       <v-col cols="auto">
@@ -73,14 +66,6 @@
     </div>
 
     <div v-if="isStartMsg" class="mt-3">
-      <v-row align="center" justify="center">
-        <v-card width="800" class="px-8 py-5">
-          <v-row >
-            <h4>Code : {{ code }}</h4>
-            <v-btn style="text-transform: unset !important;font-size: 12px;" class="mx-5" variant="outlined" v-clipboard:copy="code" v-clipboard:success="onCopySuccess" height="25">{{ isCopy ? 'Copied' : 'Copy'}}</v-btn>
-          </v-row>
-        </v-card>
-      </v-row>
 
     <ChatBox  :code="code" :username="userNameCode"></ChatBox>
     <v-row align="center" justify="center">
@@ -119,7 +104,7 @@ const isRules = ref(false);
 const isRequired = ref(false);
 const isCodeTrue = ref(false);
 const channel = new BroadcastChannel('chat-channel');
-const isCopy = ref(false);
+
 const messageRules = ref([
   value => {
     if(value){
@@ -151,16 +136,13 @@ const codeRules = ref([
   }
 ]);
 
-const onCopySuccess = () =>{
-  isCopy.value = true;
-};
+
 
 // localStorage.setItem('messages',JSON.stringify(messages.value));
 const startMessaging = () => {
   console.log(userNameCode.value.length)
   if(userNameCode.value.length > 0){
-    isCopy.value = false;
-    messages.value.push({ code: code.value, messages: [] });
+    messages.value.push({ code: code.value, owner: userNameCode.value, messages: [] });
     localStorage.setItem('messages',JSON.stringify(messages.value));
     const storedMessages = localStorage.getItem('messages');
     console.log("storeee",storedMessages)
@@ -287,18 +269,18 @@ const sendMessage2 = () => {
 
 
 
-onMounted(() => {
-  const storedMessages = localStorage.getItem('messages');
-  console.log("store",storedMessages)
-  if (storedMessages) {
-    messages.value = JSON.parse(storedMessages);
-    channel.postMessage(storedMessages);
-    console.log("st0000",messages.value);
-    channel.onmessage = (msg) =>{
-    console.log(" mount msg ==",msg)
-    }
-  }
-});
+// onMounted(() => {
+//   const storedMessages = localStorage.getItem('messages');
+//   console.log("store",storedMessages)
+//   if (storedMessages) {
+//     messages.value = JSON.parse(storedMessages);
+//     channel.postMessage(storedMessages);
+//     console.log("st0000",messages.value);
+//     channel.onmessage = (msg) =>{
+//     console.log(" mount msg ==",msg)
+//     }
+//   }
+// });
 
 // watch(messages, (messages) => {
 //   const storedMessages = localStorage.getItem('messages');
